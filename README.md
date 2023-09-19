@@ -1,0 +1,1 @@
+Pneumonia is a common infectious disease, in this project we're trying to use a classification model to predict the disease from X-Ray images.
