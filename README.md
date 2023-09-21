@@ -48,6 +48,8 @@ The model achieved an accuracy of 80% and a precision of 54% on the validation s
 
 Utilizes Class Activation Maps (CAM) for better understanding of model decisions.
 
+tensor([True]) means positive Pneumonia
+
 ![Pneumonia-CAM](https://github.com/parham2013/Pneumonia-Classification-PyTorch/assets/74326920/9e8539d3-57fc-4ad6-89f7-4480b088c31f)
 
 ---
@@ -87,6 +89,8 @@ Model validation:
 ## Interpretability
 
 Since we care about the reason why our model classifies an image as positive, we used Class Activation Maps, as you can see, it's a heatmap:
+
+tensor([True]) means positive Pneumonia
 
 ![Pneumonia-CAM-02](https://github.com/parham2013/Pneumonia-Classification-PyTorch/assets/74326920/4401ace4-1130-49af-af51-4489a41a5e6c)
 
