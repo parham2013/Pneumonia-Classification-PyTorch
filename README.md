@@ -49,10 +49,11 @@ tensor([True]) means positive Pneumonia
 
 ---
 
-Project consists of 3 sections:  
+Project consists of 4 sections:  
 * Preprocessing
 * Model-Training
 * Interpretability
+* Predicting
 
   ## Preprocessing
   Loading data, normalizing and separating train-validation sets and saving them in another folder.
@@ -88,38 +89,9 @@ Since we care about the reason why our model classifies an image as positive, we
 tensor([True]) means positive Pneumonia  
 ![Pneumonia-CAM-02](https://github.com/parham2013/Pneumonia-Classification-PyTorch/assets/74326920/4401ace4-1130-49af-af51-4489a41a5e6c)
 
-To classify an image outside of validation dataset do the following:
-1. Download the model from releases and put it in your root folder
-2. Uncomment the last cell in Interpretability notebook and give it the image path, the code in the cell is the following:
-
-```
-import pydicom
-import cv2
-import numpy as np
-
-# Step 1: Read the DICOM file
-dcm_path = "path/to/your/image.dcm"
-dcm = pydicom.read_file(dcm_path).pixel_array
-
-# Step 2: Normalize and Resize
-dcm = dcm / 255
-dcm_array = cv2.resize(dcm, (224, 224)).astype(np.float32)
-
-# Step 3: Apply Transforms
-val_transforms = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize(0.49, 0.248),
-])
-img_tensor = val_transforms(dcm_array)
-
-# Step 4: Move to Device
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-img_tensor = img_tensor.to(device).unsqueeze(0)  # Add a batch dimension
-
-# Step 5: Run through Model
-# Assume 'model' is your trained model
-activation_map, pred = cam(model, img_tensor)
-
-# Visualizing
-visualize(img.cpu().numpy(), activation_map, pred)
-```
+## Predicting
+Using the model is very simple, do the following:
+1. Download the Trained-Model from releases
+2. Download Predicting notebook and put it in the same folder as Trained-Model
+3. Create a Python venv, install libraries
+4. change the image address  with the address of your own image(Images must be in Dicom format)
