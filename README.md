@@ -7,21 +7,19 @@ Pneumonia is an inflammatory condition of the lung affecting primarily the tiny 
 * Pneumonia can be prevented by immunization, adequate nutrition, and by addressing environmental factors.
 * Pneumonia caused by bacteria can be treated with antibiotics, but only one third of children with pneumonia receive the antibiotics they need.
 
-Source: [World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/pneumonia)
+Source: [World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/pneumonia)  
 
-![Chest_radiograph_in_influensa_and_H_influenzae,_posteroanterior,_annotated](https://github.com/parham2013/Pneumonia-Classification-PyTorch/assets/74326920/5798431c-74f0-45fb-9562-373ab540905a)
-
+![Chest_radiograph_in_influensa_and_H_influenzae,_posteroanterior,_annotated](https://github.com/parham2013/Pneumonia-Classification-PyTorch/assets/74326920/5798431c-74f0-45fb-9562-373ab540905a)  
 Image Source: [Wikipedia](https://en.wikipedia.org/wiki/Pneumonia)
 
 
 # Epidemiology of Pneumonia
 Pneumonia is a leading cause of death among children and adults worldwide.
-Pneumonia affects children and families everywhere, but deaths are highest in southern Asia and sub-Saharan Africa. Children can be protected from pneumonia, it can be prevented with simple interventions, and it can be treated with low-cost, low-tech medication and care.
-
+Pneumonia affects children and families everywhere, but deaths are highest in southern Asia and sub-Saharan Africa. Children can be protected from pneumonia, it can be prevented with simple interventions, and it can be treated with low-cost, low-tech medication and care.  
 Source: [Wikipedia](https://en.wikipedia.org/wiki/Pneumonia)
 
 # How Does Machine Learning Help?
-Machine learning algorithms have shown promise in improving the detection, diagnosis, and treatment planning of pneumonia.
+Machine learning algorithms have shown promise in improving the detection, diagnosis, and treatment planning of pneumonia.  
 Source: [ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S0933365796003673)
 
 
@@ -29,11 +27,9 @@ Source: [ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S0
 * Diagnosis: Algorithms can process and identify patterns in large datasets that might be difficult for a human to analyze.
 * Treatment Planning: Predictive algorithms can help in determining the best treatment options based on historical data and patient-specific factors.
 
-Sources:
-
+Sources:  
 - [CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning
-](https://arxiv.org/abs/1711.05225)
-
+](https://arxiv.org/abs/1711.05225)  
 - [PDF Document](https://web.njit.edu/~usman/courses/cs732_spring19/CheXNet_Yanan%20Yang.pdf)
 
 
@@ -48,16 +44,16 @@ The model achieved an accuracy of 80% and a precision of 54% on the validation s
 
 Utilizes Class Activation Maps (CAM) for better understanding of model decisions.
 
-tensor([True]) means positive Pneumonia
-
+tensor([True]) means positive Pneumonia  
 ![Pneumonia-CAM](https://github.com/parham2013/Pneumonia-Classification-PyTorch/assets/74326920/9e8539d3-57fc-4ad6-89f7-4480b088c31f)
 
 ---
 
-Project consists of 3 sections, 
+Project consists of 4 sections:  
 * Preprocessing
 * Model-Training
 * Interpretability
+* Predicting
 
   ## Preprocessing
   Loading data, normalizing and separating train-validation sets and saving them in another folder.
@@ -90,40 +86,12 @@ Model validation:
 
 Since we care about the reason why our model classifies an image as positive, we used Class Activation Maps, as you can see, it's a heatmap:
 
-tensor([True]) means positive Pneumonia
-
+tensor([True]) means positive Pneumonia  
 ![Pneumonia-CAM-02](https://github.com/parham2013/Pneumonia-Classification-PyTorch/assets/74326920/4401ace4-1130-49af-af51-4489a41a5e6c)
 
-To classify an image outside of validation dataset, you can uncomment the last cell in Interpretability notebook and give it the image path, the code in the cell is the following:
-
-```
-import pydicom
-import cv2
-import numpy as np
-
-# Step 1: Read the DICOM file
-dcm_path = "path/to/your/image.dcm"
-dcm = pydicom.read_file(dcm_path).pixel_array
-
-# Step 2: Normalize and Resize
-dcm = dcm / 255
-dcm_array = cv2.resize(dcm, (224, 224)).astype(np.float32)
-
-# Step 3: Apply Transforms
-val_transforms = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize(0.49, 0.248),
-])
-img_tensor = val_transforms(dcm_array)
-
-# Step 4: Move to Device
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-img_tensor = img_tensor.to(device).unsqueeze(0)  # Add a batch dimension
-
-# Step 5: Run through Model
-# Assume 'model' is your trained model
-activation_map, pred = cam(model, img_tensor)
-
-# Visualizing
-visualize(img.cpu().numpy(), activation_map, pred)
-```
+## Predicting
+Using the model is very simple, do the following:
+1. Download the Trained-Model from releases
+2. Download Predicting notebook and put it in the same folder as Trained-Model
+3. Create a Python venv, install libraries
+4. change the image address  with the address of your own image(Images must be in Dicom format)
