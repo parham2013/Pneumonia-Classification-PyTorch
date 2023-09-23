@@ -49,7 +49,7 @@ tensor([True]) means positive Pneumonia
 
 ---
 
-Project consists of 3 sections, 
+Project consists of 3 sections:  
 * Preprocessing
 * Model-Training
 * Interpretability
