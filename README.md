@@ -88,7 +88,9 @@ Since we care about the reason why our model classifies an image as positive, we
 tensor([True]) means positive Pneumonia  
 ![Pneumonia-CAM-02](https://github.com/parham2013/Pneumonia-Classification-PyTorch/assets/74326920/4401ace4-1130-49af-af51-4489a41a5e6c)
 
-To classify an image outside of validation dataset, you can uncomment the last cell in Interpretability notebook and give it the image path, the code in the cell is the following:
+To classify an image outside of validation dataset do the following:
+1. Download the model from releases and put it in your root folder
+2. Uncomment the last cell in Interpretability notebook and give it the image path, the code in the cell is the following:
 
 ```
 import pydicom
