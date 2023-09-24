@@ -1,4 +1,4 @@
-# Predicting
+# How to Use
 Using the model is very simple, do the following:
 1. Download the Trained-Model from releases
 2. Download Predicting notebook and put it in the same folder as Trained-Model
